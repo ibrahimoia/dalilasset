@@ -6,7 +6,8 @@ import pdfkit
 from flask import Flask, render_template, request, send_file, abort, redirect, url_for
 
 # --- Initialization & Configuration ---
-app = Flask(__name__)
+# Configured template_folder='.' to look for HTML files in the same directory as app.py
+app = Flask(__name__, template_folder='.')
 app.secret_key = "super_secret_session_key" 
 
 # Track global runtime variables safely
