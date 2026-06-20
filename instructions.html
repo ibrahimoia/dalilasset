@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Data Preparation Guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+        .guide-container {
+            max-width: 2000px;
+            margin: 0 auto;
+            background: #B0C4DE;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #2C3E50;
+            border-bottom: 3px solid #2196F3;
+            padding-bottom: 12px;
+            margin-top: 0;
+        }
+        h2 {
+            color: #1565C0;
+            margin-top: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .strong-term {
+            background-color: #eef2f7;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: Consolas, monospace;
+            font-size: 0.95em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #2C3E50;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .alert-box {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .alert-danger {
+            background-color: #ffebee;
+            color: #c62828;
+            border-left: 5px solid #e53935;
+        }
+        .alert-info {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            border-left: 5px solid #2196F3;
+        }
+        .btn-back {
+            display: inline-block;
+            margin-top: 30px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .btn-back:hover {
+            background-color: #1e88e5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="guide-container">
+    <h1>Data Preparation Guide: Asset Condition Assessment</h1>
+    <p>To ensure your Excel file uploads successfully and generates accurate PDF reports, health metrics, and automated engineering recommendations, your spreadsheet must follow a specific layout structure.</p>
+
+    <h2>📋 General Preparation Rules</h2>
+    <ul>
+        <li><strong>File Format:</strong> The file must be saved as an Excel Workbook (<span class="strong-term">.xlsx</span> or <span class="strong-term">.xls</span>).</li>
+        <li><strong>Sheet Structure:</strong> Place all asset data on the <strong>first tab (Sheet 1)</strong> of your workbook.</li>
+        <li><strong>Header Row:</strong> Row 1 must contain the exact column headers listed below. Do not leave empty rows above your column headers.</li>
+        <li><strong>Text Formatting:</strong> Avoid blank spaces inside your barcode and PIN IDs (e.g., use <code>BC-10023</code> instead of <code>BC  10023</code>).</li>
+    </ul>
+
+    <h2>🏗️ Required Columns & Layout</h2>
+    <p>Your Excel spreadsheet should include the following exact column headers (case-sensitive):</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Column Header Name</th>
+                <th>Data Type / Format</th>
+                <th>Description & Purpose</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>AssetBarcode</strong></td>
+                <td>Text / Numbers</td>
+                <td><strong>Mandatory.</strong> The primary unique identifier for the specific equipment piece. Used to fetch matching photographs automatically.</td>
+                <td><span class="strong-term">A-40892</span></td>
+            </tr>
+            <tr>
+                <td><strong>PIN</strong></td>
+                <td>Text / Numbers</td>
+                <td><strong>Mandatory.</strong> The Property Identification Number. Multiple assets can share the same PIN if they belong to the same property or cluster group.</td>
+                <td><span class="strong-term">PIN-QA-09</span></td>
+            </tr>
+            <tr>
+                <td><strong>AssetDescription</strong></td>
+                <td>Text</td>
+                <td>A clear description of what the asset or system item actually is.</td>
+                <td>Chilled Water Pump 02</td>
+            </tr>
+            <tr>
+                <td><strong>sys</strong></td>
+                <td>Text</td>
+                <td>The structural engineering or mechanical system segment name.</td>
+                <td>HVAC</td>
+            </tr>
+            <tr>
+                <td><strong>building</strong></td>
+                <td>Text</td>
+                <td>The name or specific zone designation of the building.</td>
+                <td>Tower A</td>
+            </tr>
+            <tr>
+                <td><strong>location</strong></td>
+                <td>Text</td>
+                <td>Floor room number, sector, or exact physical placement coordinates.</td>
+                <td>Basement Plant Room</td>
+            </tr>
+            <tr>
+                <td><strong>AssetConditionsDescription</strong></td>
+                <td>Text</td>
+                <td><strong>Mandatory.</strong> The condition text used to calculate automatic maintenance actions. Accepted terms: <code>Excellent</code>, <code>Good</code>, <code>Fair</code>, <code>Poor</code>, <code>Broken</code>, <code>New</code>, <code>جديد</code>, <code>متوسط</code>, <code>سيء</code>.</td>
+                <td><span class="strong-term">Fair</span></td>
+            </tr>
+            <tr>
+                <td><strong>date-purchase</strong></td>
+                <td>Date (YYYY-MM-DD)</td>
+                <td>Used by the system to compute the equipment lifecycle age context.</td>
+                <td>2018-04-15</td>
+            </tr>
+            <tr>
+                <td><strong>comments</strong></td>
+                <td>Text</td>
+                <td>Field notes, inspector annotations, or critical observations.</td>
+                <td>Slight belt wear noted.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>💡 Quick Tips for Success</h2>
+    
+    <div class="alert-box alert-danger">
+        <strong>⚠️ Critical Check:</strong> If an asset's <code>AssetConditionsDescription</code> is listed as <strong>Poor</strong> or <strong>سيء</strong>, the system automatically flags it in red with an <strong>"IMMEDIATE REPAIR / REPLACE"</strong> directive on the dashboard and generated PDFs.
+    </div>
+
+    <div class="alert-box alert-info">
+        <strong>📸 Photo Syncing:</strong> If you have asset photos stored in the backend, name your image file exactly after your <code>AssetBarcode</code> column value (e.g., <code>A-40892.jpg</code> or <code>A-40892.png</code>) so the system maps them automatically to your rows.
+    </div>
+
+    <a href="/" class="btn-back">← Back to Dashboard</a>
+</div>
+
+</body>
+</html>
+
+
